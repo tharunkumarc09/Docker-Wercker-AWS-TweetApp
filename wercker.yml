@@ -47,51 +47,6 @@
          working-dir: /
          ports: 80 4000
          cmd: nginx -g 'daemon off';
- deploy-dev:
-   box: google/golang
 
-   steps:
-     - script:
-         name: get latest tag for deployment
-         code: |
-           export RELEASE_TAG=`tail $WERCKER_ROOT/generated_tag.txt`
-           echo "Release tag: $RELEASE_TAG"
-     - script:
-         name: debug
-         code: |
-           echo $WERCKER_OUTPUT_DIR
-           ls -l $WERCKER_OUTPUT_DIR
-           echo $WERCKER_ROOT
-           ls -l $WERCKER_ROOT
-     - bash-template:
-         cwd: $WERCKER_ROOT/kubernetes/deployment/dev
-     - script:
-         name: Remove template files
-         cwd: $WERCKER_ROOT/kubernetes/deployment/dev
-         code: |
-           rm *.template.yml
-     - script:
-         name: debug
-         cwd: $WERCKER_ROOT/kubernetes/deployment/dev
-         code: |
-           ls -l
-     - script:
-         name: echo tags
-         code: |
-           cat $WERCKER_ROOT/kubernetes/deployment/dev/deployment.yml
-           echo "Docker image and tag: $RELEASE_TAG"
-     - kubectl:
-         debug: true
-         server: $KUBERNETES_MASTER
-         username: $KUBERNETES_USERNAME
-         password: $KUBERNETES_PASSWORD
-         insecure-skip-tls-verify: true
-         command: apply
-         raw_args:  -f $WERCKER_ROOT/kubernetes/deployment/dev/deployment.yml --namespace $KUBERNETES_NAMESPACE
-   after-steps:
-     - slack-notifier:
-         url: $SLACK_URL
-         channel: notifications
-         username: werckerbot
         
  
