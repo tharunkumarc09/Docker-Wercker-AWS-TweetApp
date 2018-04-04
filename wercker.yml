@@ -42,7 +42,7 @@
          password: $DOCKER_PASSWORD
          # we want to push both the release image and as the latest
          tag: dev-$WERCKER_GIT_COMMIT latest
-         repository: devopscafe/tweet-app
+         repository: tharunkumarc09/docker-wercker-aws-tweetapp
          registry: https://registry.hub.docker.com
          working-dir: /
          ports: 80 4000
