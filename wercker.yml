@@ -70,11 +70,11 @@
          name: Stop all running Containers
          
          code: |
-           ssh $REMOTE_USER@$REMOTE_HOST sudo docker stop happy_hodgkin || 'echo failed to stop running containers'
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker stop distracted_goldberg || 'echo failed to stop running containers'
      - script:
          name: Remove Stopped Containers/services
          code: |
-           ssh $REMOTE_USER@$REMOTE_HOST sudo docker rm happy_hodgkin || 'echo failed to stop running containers'
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker rm distracted_goldberg || 'echo failed to stop running containers'
      - script:
          name: Remove images behind the stopped container
          code: |
