@@ -1,5 +1,6 @@
 # This references the default nginx container  from
 # the Docker Hub:https://registry.hub.docker.com/ 
+#pushing to docker
  box: nginx:latest
  
  build:
