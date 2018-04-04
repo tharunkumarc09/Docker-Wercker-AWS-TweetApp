@@ -39,12 +39,13 @@
            apt-get install -y curl
 
      - internal/docker-push:
+         
          username: $DOCKER_USERNAME
          password: $DOCKER_PASSWORD
          # we want to push both the release image and as the latest
          tag: dev-$WERCKER_GIT_COMMIT latest
          repository: tharunkumarc09/docker-wercker-aws-tweetapp
-         registry: https://registry.hub.docker.com
+         registry: https://registry.hub.docker.com/v2
          working-dir: /
          ports: 80 4000
          cmd: nginx -g 'daemon off';
