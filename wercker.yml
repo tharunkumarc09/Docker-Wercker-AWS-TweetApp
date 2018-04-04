@@ -74,16 +74,16 @@
          name: Remove Stopped Containers/services
          code: |
            ssh $REMOTE_USER@$REMOTE_HOST sudo docker rm happy_hodgkin || 'echo failed to stop running containers'
-	 - script:
+     - script:
          name: Remove images behind the stopped container
          code: |
            ssh $REMOTE_USER@$REMOTE_HOST sudo docker rmi tharunkumarc09/docker-wercker-aws-tweetapp:current || 'echo failed to stop running containers'
-	 - script:
+     - script:
          name: Remove images behind the stopped container
          code: |
            ssh $REMOTE_USER@$REMOTE_HOST sudo docker tag tharunkumarc09/docker-wercker-aws-tweetapp:latest tharunkumarc09/docker-wercker-aws-tweetapp:current
-	 - script:
-         name: Remove images behind the stopped container
+     - script:
+         name: Start container from the image
          code: |
            ssh $REMOTE_USER@$REMOTE_HOST sudo docker container run --detach  -p 82:80 --name tweetapp tharunkumarc09/docker-wercker-aws-tweetapp:current
            
