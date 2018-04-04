@@ -49,6 +49,45 @@
          working-dir: /
          ports: 80 4000
          cmd: nginx -g 'daemon off';
+ deploy-dev:
+   box: node:latest
+
+   steps:
+     - wercker/add-ssh-key:
+         keyname: THARUN_DOCKER_AWS
+         
+     - add-to-known_hosts:
+         hostname: $REMOTE_HOST
+         
+     
+     - script:
+         name: Pull newest docker images
+         
+         code: |
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker pull tharunkumarc09/docker-wercker-aws-tweetapp
+     - script:
+         name: Stop all running Containers
+         
+         code: |
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker stop happy_hodgkin || 'echo failed to stop running containers'
+     - script:
+         name: Remove Stopped Containers/services
+         code: |
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker rm happy_hodgkin || 'echo failed to stop running containers'
+	 - script:
+         name: Remove images behind the stopped container
+         code: |
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker rmi tharunkumarc09/docker-wercker-aws-tweetapp:current || 'echo failed to stop running containers'
+	 - script:
+         name: Remove images behind the stopped container
+         code: |
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker tag tharunkumarc09/docker-wercker-aws-tweetapp:latest tharunkumarc09/docker-wercker-aws-tweetapp:current
+	 - script:
+         name: Remove images behind the stopped container
+         code: |
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker container run --detach  -p 82:80 --name tweetapp tharunkumarc09/docker-wercker-aws-tweetapp:current
+           
+         
 
         
  
