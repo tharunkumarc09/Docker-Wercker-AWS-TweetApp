@@ -78,11 +78,11 @@
      - script:
          name: Remove images behind the stopped container
          code: |
-           ssh $REMOTE_USER@$REMOTE_HOST sudo docker rmi tharunkumarc09/docker-wercker-aws-tweetapp:current || 'echo failed to stop running containers'
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker rmi docker.io/tharunkumarc09/docker-wercker-aws-tweetapp:current || 'echo failed to stop running containers'
      - script:
-         name: Remove images behind the stopped container
+         name: Tag the latest container
          code: |
-           ssh $REMOTE_USER@$REMOTE_HOST sudo docker tag tharunkumarc09/docker-wercker-aws-tweetapp:latest tharunkumarc09/docker-wercker-aws-tweetapp:current
+           ssh $REMOTE_USER@$REMOTE_HOST sudo docker tag docker.io/tharunkumarc09/docker-wercker-aws-tweetapp:latest docker.io/tharunkumarc09/docker-wercker-aws-tweetapp:current
      - script:
          name: Start container from the image
          code: |
